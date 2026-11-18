@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ibmon.graph/1",
+  "title": "ibmon - grafo da fabric InfiniBand (saida de 'ibmon export -f json')",
+  "description": "Contrato de dados entre o nucleo (CLI) e a futura interface grafica.",
+  "type": "object",
+  "required": ["schema", "generated_at", "nodes", "edges"],
+  "properties": {
+    "schema": {"const": "ibmon.graph/1"},
+    "generated_at": {"type": "integer", "description": "epoch (s)"},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": {"type": "string", "description": "Node GUID (0x...)"},
+          "type": {"enum": ["hca", "switch"]},
+          "name": {"type": ["string", "null"]},
+          "hostname": {"type": ["string", "null"]},
+          "lid": {"type": ["integer", "null"]},
+          "num_ports": {"type": ["integer", "null"]},
+          "location": {"type": ["string", "null"]},
+          "local": {"type": "boolean"},
+          "ports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "port": {"type": "integer"},
+                "port_guid": {"type": ["string", "null"]},
+                "ca": {"type": ["string", "null"]},
+                "lid": {"type": ["integer", "null"]},
+                "state": {"type": ["string", "null"]},
+                "phys_state": {"type": ["string", "null"]},
+                "rate": {"type": ["string", "null"]},
+                "netdevs": {"type": "array", "items": {"type": "string"}},
+                "ip_addrs": {"type": "array", "items": {"type": "string"}},
+                "pci": {"type": ["string", "null"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "source_port", "target", "target_port"],
+        "properties": {
+          "id": {"type": "string"},
+          "source": {"type": "string"}, "source_port": {"type": "integer"},
+          "target": {"type": "string"}, "target_port": {"type": "integer"},
+          "kind": {"enum": ["host-switch", "switch-switch", "host-host"]},
+          "speed": {"type": ["string", "null"], "examples": ["4xHDR"]},
+          "severity": {"enum": [0, 1, 2], "description": "0 OK, 1 WARNING, 2 CRITICAL (pior evento aberto nas duas pontas)"},
+          "rates": {
+            "type": "object",
+            "description": "Por ponta ('a' = source, 'b' = target), quando houver coleta",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "tx_Bps": {"type": "number"}, "rx_Bps": {"type": "number"},
+                "tx_pps": {"type": "number"}, "rx_pps": {"type": "number"},
+                "xmit_wait_ps": {"type": "number"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "events": {"type": "array", "description": "Eventos abertos (linhas da tabela events)"}
+  }
+}

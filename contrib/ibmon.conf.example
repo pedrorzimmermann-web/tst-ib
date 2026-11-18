@@ -1,0 +1,57 @@
+# /etc/ibmon/ibmon.conf - todos os valores abaixo sao os padroes; descomente para alterar.
+
+[general]
+#db_path = /var/lib/ibmon/ibmon.db
+#sysfs_root = /sys
+# Nome do host (padrao: primeiro campo do node_desc da HCA, ex. "node01 mlx5_0")
+#hostname =
+#data_unit_bytes = 4
+# Inventario local so e refeito se o fingerprint das portas mudar ou apos este TTL (s)
+#inventory_ttl = 3600
+# ibnetdiscover (topologia completa) com 'discover --auto-fabric' apenas apos este TTL (s)
+#fabric_ttl = 21600
+#command_timeout = 30
+#events_retention_days = 30
+#events_max_rows = 20000
+# Mapa de nomes no formato do infiniband-diags (0xGUID "nome")
+#node_name_map = /etc/rdma/ib-node-name-map
+# Metricas para o textfile collector do node_exporter (referencia para a GUI/Grafana)
+#prom_textfile = /var/lib/node_exporter/textfile_collector/ibmon.prom
+
+[collect]
+#neighbors = yes
+# Contadores da porta do switch ligada a cada HCA local (perfquery, root)
+#peer_counters = no
+#hw_counters = yes
+# Portas a ignorar (ex.: porta sem cabo): mlx5_1:1, mlx5_3:*
+#ignore_ports =
+# Taxa esperada por link em Gb/s (100=EDR 4X, 200=HDR 4X, 400=NDR 4X). 0 = nao verificar
+#expected_rate_gbps = 0
+
+[thresholds]
+# aviso,critico sobre o DELTA entre duas coletas (sufixo _per_sec = por segundo)
+#symbol_error = 10,100
+#link_error_recovery = 1,5
+#link_downed = 1,1
+#port_rcv_errors = 5,50
+#port_rcv_remote_physical_errors = 5,50
+#port_rcv_switch_relay_errors = 50,500
+#port_xmit_discards = 10,100
+#port_xmit_constraint_errors = 1,10
+#port_rcv_constraint_errors = 1,10
+#local_link_integrity_errors = 1,5
+#excessive_buffer_overrun_errors = 1,5
+#VL15_dropped = 100,1000
+#port_xmit_wait_per_sec = 100000,1000000
+#out_of_buffer = 100,10000
+#out_of_sequence = 100,10000
+#packet_seq_err = 10,1000
+#local_ack_timeout_err = 1,100
+#rnr_nak_retry_err = 1,100
+#req_cqe_error = 10,1000
+#resp_cqe_error = 10,1000
+
+[locations]
+# Posicao fisica (rack/U) por hostname ou nome do switch
+#node01 = Rack A01 U12
+#leaf01 = Rack A01 U42

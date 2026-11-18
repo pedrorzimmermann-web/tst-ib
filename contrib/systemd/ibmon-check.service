@@ -1,0 +1,12 @@
+[Unit]
+Description=ibmon - verificacao de links InfiniBand (contadores, TX/RX, erros)
+After=rdma.service network-online.target
+ConditionPathIsDirectory=/sys/class/infiniband
+
+[Service]
+Type=oneshot
+ExecStart=/opt/ibmon/bin/ibmon check --quiet
+# Codigos 1/2 (WARNING/CRITICAL) sao resultados validos, nao falhas do servico
+SuccessExitStatus=1 2
+Nice=10
+IOSchedulingClass=idle

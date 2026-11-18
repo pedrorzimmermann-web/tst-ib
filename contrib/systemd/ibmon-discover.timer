@@ -1,0 +1,10 @@
+[Unit]
+Description=ibmon - descoberta periodica da topologia InfiniBand
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

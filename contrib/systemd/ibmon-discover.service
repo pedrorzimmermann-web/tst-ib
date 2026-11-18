@@ -1,0 +1,12 @@
+[Unit]
+Description=ibmon - descoberta de topologia InfiniBand (ibnetdiscover)
+After=rdma.service
+ConditionPathIsDirectory=/sys/class/infiniband
+
+[Service]
+Type=oneshot
+# --auto-fabric: so executa ibnetdiscover se fabric_ttl expirou; sem mudanca de hash nada e gravado
+ExecStart=/opt/ibmon/bin/ibmon discover --auto-fabric
+ExecStartPost=/opt/ibmon/bin/ibmon prune
+SuccessExitStatus=1 2
+Nice=15

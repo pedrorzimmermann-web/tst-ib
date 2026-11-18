@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+  ESBOCO (nao operacional) da visualizacao da fabric InfiniBand.
+
+  Ideia: carregar o JSON do contrato ibmon.graph/1 (gui/schema/graph.schema.json),
+  obtido de GET /api/graph (gui/api/app.py) ou de um arquivo gerado por
+      ibmon export -f json -o graph.json
+  e desenhar hosts/HCAs -> leaf -> spine, colorindo links por 'severity'
+  e espessura por 'rates.*.tx_Bps'.
+
+  Bibliotecas de referencia (escolher UMA; nenhuma esta incluida):
+    - Cytoscape.js  https://js.cytoscape.org/   (layouts hierarquicos: dagre/breadthfirst)
+    - vis-network   https://visjs.github.io/vis-network/docs/network/
+    - D3.js (force) https://d3js.org/
+  Em ambiente HPC sem internet, servir os .js localmente (nao usar CDN).
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>ibmon - fabric InfiniBand (esboco)</title>
+  <!-- <script src="vendor/cytoscape.min.js"></script>  TODO: escolher e versionar biblioteca -->
+</head>
+<body>
+  <header><h1>ibmon</h1><span id="generated-at"></span></header>
+  <main>
+    <section id="graph"><!-- area do grafo --></section>
+    <aside id="details"><!-- detalhes do no/link selecionado: GUID, LID, portas, IPs, posicao, TX/RX, erros --></aside>
+    <section id="events"><!-- eventos abertos (WARNING/CRITICAL) --></section>
+  </main>
+  <!-- <script src="app.js"></script>  TODO: fetch('/api/graph') -> render -->
+</body>
+</html>
