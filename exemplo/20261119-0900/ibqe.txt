@@ -1,0 +1,8 @@
+Errors for 0x0000aa0000000001 "leaf01"
+   GUID 0x0000aa0000000001 port 1: [LinkDownedCounter == 40] [SymbolErrorCounter == 12]       Link info:     12    1[  ] ==( 4X 53.125 Gbps Active/  LinkUp)==>  0x0000bb0000000001     45    1[  ] "node01 HCA-1" ( )
+   GUID 0x0000aa0000000001 port 2: [LinkDownedCounter == 31]       Link info:     12    2[  ] ==( 4X 53.125 Gbps Active/  LinkUp)==>  0x0000bb0000000002     46    1[  ] "node02 HCA-1" ( )
+   GUID 0x0000aa0000000001 port 9: [PortRcvErrors == 5]
+Errors for 0x0000bb0000000003 "node03 HCA-1"
+   GUID 0xbb0000000003 port 1: [SymbolErrorCounter == 7]       Link info:     47    1[  ] ==( 4X 53.125 Gbps Active/  LinkUp)==>  0x0000aa0000000001     12    3[  ] "leaf01" ( )
+
+## Summary: 6 nodes checked, 2 bad nodes found

@@ -1,0 +1,7 @@
+# saidas geradas pelos scripts ao testar em exemplo/
+exemplo/*/*.tsv
+exemplo/*/*_portas.txt
+exemplo/*/comuns.txt
+exemplo/*/so_*.txt
+exemplo/*/outra_ponta*.txt
+exemplo/*/exp_remotas.txt
