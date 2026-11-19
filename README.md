@@ -21,6 +21,7 @@ S=~/ib-scripts/scripts          # onde estão estes scripts no cluster
 | 4 | `bash $S/04-delta.sh ../PASTA_ANTERIOR` | idem | o que **cresceu** desde a coleta anterior (`delta.tsv`) |
 | 5 | `bash $S/05-jobs.sh [N] [desde]` | idem | `squeue`/`sacct` dos hosts ofensores |
 | 6 | `bash $S/06-diagnostico.sh` | idem | troubleshooting quando algo volta vazio |
+| 7 | `bash $S/07-categorias.sh [N] [categoria]` | idem | erros do `ibqueryerrors` agrupados por categoria: resumo, top N por categoria (qtd, node, link) e nodes em mais categorias |
 
 Fluxo diário:
 
@@ -47,6 +48,7 @@ correlacionar com atividade é o **delta** do passo 4. Não zere contadores
 | `comuns.txt` / `so_ibqe.txt` / `so_exp.txt` | resultado da comparação |
 | `outra_ponta.txt` | portas de HCA do ibqueryerrors que casaram com a porta do switch no exporter |
 | `delta.tsv` | `delta  chave  host  contador  antes -> agora` |
+| `ibqe_erros.tsv` | `categoria  qtd  node  link  chave` (do `07`, uma linha por contador com erro) |
 
 Consultas rápidas:
 
@@ -54,6 +56,15 @@ Consultas rápidas:
 grep -P '\tnode01\t' ofensores.tsv            # tudo de um host
 grep '^0x0000aa0000000001:' ofensores.tsv     # todas as portas de um switch
 cut -f3 ofensores.tsv | sort | uniq -c        # quantas portas por tipo de contador
+```
+
+No `07`, o **node** é o lado do link cujo nome parece HCA (`HCA`/`mlx` no nome); se nenhum
+parecer, é o lado remoto. Porta sem "Link info" aparece como `-> ?[?]`.
+
+```bash
+bash $S/07-categorias.sh 20                      # top 20 de cada categoria
+bash $S/07-categorias.sh 50 SymbolErrorCounter   # só uma categoria
+grep -P '\tnode01\t' ibqe_erros.tsv               # todas as categorias de um node
 ```
 
 ## Testar sem o cluster
